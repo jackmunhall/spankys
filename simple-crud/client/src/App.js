@@ -2,6 +2,8 @@ import "./App.css";
 import Employee from "./components/Employee";
 import Customer from "./components/Customer";
 import Home from "./components/Home";
+import Order from "./components/Order";
+
 import {
   BrowserRouter as Router,
   Routes,
