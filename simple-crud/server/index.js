@@ -30,6 +30,6 @@ app.post("/create", (req, res) => {
   );
 });
 
-app.listen(3002, () => {
-  console.log("Yay, your server is running in port 3002");
+app.listen(3001, () => {
+  console.log("Yay, your server is running in port 3001");
 });
