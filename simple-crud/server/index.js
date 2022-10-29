@@ -12,14 +12,12 @@ console.log("Connected to PlanetScale!");
 
 app.post("/create", (req, res) => {
   const name = req.body.name;
-  const age = parseInt(req.body.age);
-  const country = req.body.country;
-  const position = req.body.position;
-  const wage = parseInt(req.body.wage);
+  const item = req.body.item;
+  const quant = parseInt(req.body.quant);
 
   connection.query(
-    "INSERT INTO employees (name, age, country, position, wage) VALUES(?,?,?,?,?)",
-    [name, age, country, position, wage],
+    "INSERT INTO orders_log (name, item, quantity, completed) VALUES(?,?,?)",
+    [name, item, quantity],
     (err, result) => {
       if (err) {
         console.log(err);
@@ -30,6 +28,6 @@ app.post("/create", (req, res) => {
   );
 });
 
-app.listen(3001, () => {
-  console.log("Yay, your server is running in port 3001");
+app.listen(3000, () => {
+  console.log("Yay, your server is running in port 300o");
 });
