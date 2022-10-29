@@ -15,7 +15,7 @@ function Customer(){
 
 
 	 const addOrder = () => {
-		Axios.post('http://localhost:3001/create', {name: name, item: item, quant: quant,}).then(() => { console.log("success"); });
+		Axios.post('http://localhost:3000/create', {name: name, item: item, quant: quant,}).then(() => { console.log("success"); });
 		};
 
 	 return(
