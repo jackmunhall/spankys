@@ -12,6 +12,7 @@ function Customer(){
 	 const displayInfo = () => { console.log(nickname + item + qty); };
 
 	 const [newItem, setNewItem] = useState("");
+	 const [newQty, setNewQty] = useState(0);
 
 	 const [orderList, setOrderList] = useState([]);
 
@@ -47,7 +48,7 @@ function Customer(){
 			 (response) => {
 				  setOrderList(
 				  	orderList.map((val) => {
-						 return val.id = id
+						 return val.id == id
 						 ? {
 							  id: val.id,
 							  nickname: val.nickname,
@@ -63,12 +64,37 @@ function Customer(){
 		};
 
 
+		const updateOrderQty = (id) => {
+			 Axios.put("http://localhost:3001/updateq", {qty: newQty, id: id}).then(
+			 (response) => {
+				  setOrderList(
+				  	orderList.map((val) => {
+						 return val.id == id
+						 ? {
+							  id: val.id,
+							  nickname: val.nickname,
+							  item: val.item,
+							  qty: val.qty,
+						 }
+
+						 : val;
+					})
+				);
+			}
+		);
+	};
+
+
+
+
+
+
 
 		const deleteOrder = (id) => {
 			 Axios.delete(`http://localhost:3001/delete/${id}`).then((response) => {
 				  setOrderList(
 				  	orderList.filter((val) => {
-						 return val.id != id;
+						 return val.id !== id;
 					})
 				);
 			});
@@ -92,12 +118,68 @@ function Customer(){
 	 		<input type="number" onChange={(event) => { setQty(event.target.value); }}/>
 			<button onClick={addOrder}>Submit Order</button>
 
-		</div>
+        <button onClick={getOrders}>Show Orders</button>
+			  
 
-		<div className="order_col">
-		<h2 className = "pageText">Our menu:</h2>
-		</div>
+		 
 
+        {orderList.map((val, key) => {
+          return (
+            <div className="order"> 
+              <div>
+                <h3>Nickname: {val.nickname}</h3>
+                <h3>Item: {val.item}</h3>
+                <h3>Qty: {val.qty}</h3>
+                <h3>Order_Date: {val.date}</h3>
+                <h3>ID: {val.id}</h3>
+              </div>
+              <div>
+                <input
+                  type="text"
+                  placeholder="Update item here"
+                  onChange={(event) => {
+                    setNewItem(event.target.value);
+                  }}
+                />
+                <button
+                  onClick={() => {
+                    updateOrderItem(val.id);
+                  }}
+                >
+                  {" "}
+                  Update item
+                </button>
+
+
+					 <input
+					  type="number"
+					  placeholder="Update quantity here"
+					  onChange={(event) => {
+							setNewQty(event.target.value);
+						}}
+						/>
+
+						<button
+						 onClick={() => {
+							  updateOrderQty(val.id);
+							}}
+						>
+						{" "}
+						Update quantity
+						</button>
+
+                <button
+                  onClick={() => {
+                    deleteOrder(val.id);
+                  }}
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          );
+        })}
+      </div>
 
 		</div>
 

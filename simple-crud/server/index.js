@@ -31,7 +31,7 @@ app.post("/create", (req, res) => {
 
 
 
-app.get("/customers", (req, res) => {
+app.get("/orders", (req, res) => {
 	 db.query("SELECT * FROM orders22", (err, result) => {
 		  if (err) {
 				console.log(err);
@@ -62,6 +62,26 @@ app.put("/update", (req, res) => {
 			}
 		);
 	});
+
+
+app.put("/updateq", (req, res) => {
+	 const id = req.body.id;
+	 const qty = parseInt(req.body.qty);
+
+	 db.query(
+	 	"UPDATE orders22 SET qty = ? WHERE id = ?",
+		[qty, id],
+
+		(err, result) => {
+			 if(err) {
+				  consle.log(err);
+			  } else {
+					res.send(result);
+			  }
+
+			}
+		);
+});
 
 
 	app.delete("/delete/:id", (req, res) => {
