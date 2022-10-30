@@ -7,17 +7,18 @@ require("dotenv").config(); //.env file in this folder holds private information
 app.use(cors());
 app.use(express.json());
 
-const connection = mysql.createConnection(process.env.DATABASE_URL);
+const db = mysql.createConnection(process.env.DATABASE_URL);
 console.log("Connected to PlanetScale!");
 
 app.post("/create", (req, res) => {
-  const name = req.body.name;
+  const nickname = req.body.nickname;
   const item = req.body.item;
-  const quant = parseInt(req.body.quant);
+  const qty = parseInt(req.body.qty);
 
-  connection.query(
-    "INSERT INTO orders_log (name, item, quantity, completed) VALUES(?,?,?)",
-    [name, item, quantity],
+
+  db.query(
+    "INSERT INTO orders22 (nickname, item, qty) VALUES(?,?,?)",
+    [nickname, item, qty],
     (err, result) => {
       if (err) {
         console.log(err);
@@ -28,6 +29,52 @@ app.post("/create", (req, res) => {
   );
 });
 
-app.listen(3000, () => {
-  console.log("Yay, your server is running in port 300o");
+
+
+app.get("/customers", (req, res) => {
+	 db.query("SELECT * FROM orders22", (err, result) => {
+		  if (err) {
+				console.log(err);
+		  } else {
+				res.send(result);
+		  }
+
+		 });
+	});
+
+
+app.put("/update", (req, res) => {
+	 const id = req.body.id;
+	 const item = req.body.item;
+
+	 db.query(
+	 	"UPDATE orders22 SET item = ? WHERE id = ?",
+
+		[item, id],
+
+		(err, result) => {
+			 if (err) {
+				  console.log(err);
+			 } else{
+				  res.send(result);
+			 }
+
+			}
+		);
+	});
+
+
+	app.delete("/delete/:id", (req, res) => {
+		 const id = req.params.id;
+		 db.query("DELETE FROM orders22 WHERE id = ?", id, (err, result) => {
+			  if(err) {
+					console.log(err);
+				} else {
+					 res.send(result);
+				}
+			});
+	});
+
+app.listen(3001, () => {
+  console.log("Yay, your server is running in port 3001");
 });

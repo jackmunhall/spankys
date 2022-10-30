@@ -20,10 +20,10 @@ function Home(){
 
 
     return (
-        <div class="home">
-            <img src={logo} alt="spanky's logo" class="logo"></img>
+        <div className="home">
+            <img src={logo} alt="spanky's logo" className="logo"></img>
             <Typography variant="h4">I am a ...</Typography>
-            <div class="choices">
+            <div className="choices">
                 <Button onClick={navigateToCustomer}>Customer</Button>
                 <Button onClick={navigateEmployee}>Employee</Button>
             </div>
