@@ -137,6 +137,7 @@ function Order(){
                 <h3 className="field-name">ID:</h3>
 					 <h3 className="field"> {val.id}</h3>
 					 </div>
+					 
               </div>
               <div className="choices">
                 <input

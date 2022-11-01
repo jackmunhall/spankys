@@ -8,6 +8,7 @@ function Customer(){
 	 const [nickname, setNickname] = useState("");
 	 const [item, setItem] = useState("");
 	 const [qty, setQty] = useState(0);
+	
 
 	 const displayInfo = () => { console.log(nickname + item + qty); };
 
@@ -37,8 +38,10 @@ function Customer(){
 
 		const getOrders = () => {
 			 Axios.get("http://localhost:3001/orders").then((response) => {
+				
 				  setOrderList(response.data);
 			 });
+
 		};
 
 

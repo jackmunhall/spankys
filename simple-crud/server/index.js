@@ -17,8 +17,8 @@ app.post("/create", (req, res) => {
   const qty = parseInt(req.body.qty);
 
   db.query(
-    "INSERT INTO orders22 (nickname, item, qty) VALUES(?,?,?)",
-    [nickname, item, qty],
+    "INSERT INTO orders22 (nickname, item, qty, completed) VALUES(?,?,?,?)",
+    [nickname, item, qty, 0],
     (err, result) => {
       if (err) {
         console.log(err);
