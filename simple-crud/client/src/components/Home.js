@@ -22,10 +22,12 @@ function Home(){
     return (
         <div className="home">
             <img src={logo} alt="spanky's logo" className="logo"></img>
-            <Typography variant="h4">I am a ...</Typography>
+            <h4 className="text">I am a ...</h4>
             <div className="choices">
-                <Button onClick={navigateToCustomer}>Customer</Button>
-                <Button onClick={navigateEmployee}>Employee</Button>
+                <Button onClick={navigateToCustomer} variant='outlined'
+  				sx={{ color: 'black', backgroundColor: 'orange', borderColor: 'orange', minWidth: '30%', padding: '30px', margin: '20px' }}>Customer</Button>
+                <Button onClick={navigateEmployee} variant='outlined' 
+					 sx={{ color: 'black', backgroundColor: 'orange', borderColor: 'orange', minWidth: '30%', padding: '30px', margin: '20px' }}>Employee</Button>
             </div>
         </div>
     );

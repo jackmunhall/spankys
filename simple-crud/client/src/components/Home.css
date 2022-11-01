@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:ital,wght@1,100&family=Fjalla+One&family=Quicksand:wght@700&family=Raleway:ital,wght@0,400;1,100&display=swap');
+
+
+
 .home {
     display: flex; 
     flex-direction: column;
@@ -6,3 +10,20 @@
     align-items: center;    
     height: 100%
 }
+
+
+
+.choices {
+	 padding: 30px;
+	 width: 80%;
+	 display: flex;
+	 justify-content: center;
+
+}
+
+.text {
+	 font-family: 'Raleway';
+	 font-size: 20pt;
+}
+
+
