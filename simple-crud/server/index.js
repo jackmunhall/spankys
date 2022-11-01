@@ -55,25 +55,21 @@ app.put("/update", (req, res) => {
   );
 });
 
-
-
 app.put("/updateq", (req, res) => {
-	 const id = req.body.id;
-	 const qty = parseInt(req.body.qty)
-	 db.query(
-	 "UPDATE orders22 SET qty = ? WHERE id = ?",
-	 [qty, id],
-	 (err, result) => {
-		  if (err) {
-				console.log(err);
-			} else {
-				 res.send(result);
-			}
-		}
-	);
+  const id = req.body.id;
+  const qty = parseInt(req.body.qty);
+  db.query(
+    "UPDATE orders22 SET qty = ? WHERE id = ?",
+    [qty, id],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
 });
-
-
 
 app.delete("/delete/:id", (req, res) => {
   const id = req.params.id;
@@ -85,8 +81,6 @@ app.delete("/delete/:id", (req, res) => {
     }
   });
 });
-
-
 
 app.listen(3001, () => {
   console.log("Yay, your server is running in port 3001");
