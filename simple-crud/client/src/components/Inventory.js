@@ -25,9 +25,9 @@ function Inventory(){
 	return(
 		<div>
 			<h1 className="header">Inventory page</h1>
-			<button onClick={getInventory}></button>
-			<div>
-				<TableContainer component={Paper}>
+			<button onClick={getInventory}>Load Inventory</button>
+			<div class="table">
+				<TableContainer sx={{width:'80%',margin:'auto',border:'3px solid lightgray'}}component={Paper}>
 					<Table>
 						<TableHead>
 							<TableRow>
