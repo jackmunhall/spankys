@@ -39,6 +39,16 @@ app.get("/orders", (req, res) => {
   });
 });
 
+app.get("/inventory", (req, res) => {
+  db.query("SELECT * FROM inventory", (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
 app.put("/update", (req, res) => {
   const id = req.body.id;
   const item = req.body.item;
