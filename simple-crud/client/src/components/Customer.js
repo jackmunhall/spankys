@@ -1,7 +1,8 @@
 import "./Customer.css";
 import { useState } from 'react';
 import Axios from 'axios';
-
+import Button from '@mui/material/Button' 
+import {Routes, Route, useNavigate} from 'react-router-dom';
   
 function Customer(){
 
@@ -15,6 +16,12 @@ function Customer(){
 	 const [newQty, setNewQty] = useState(0);
 
 	 const [orderList, setOrderList] = useState([]);
+
+
+	 const navigate = useNavigate();
+	 const navigateHome = () => {
+		navigate ('/');
+    }
 
 
 
@@ -103,7 +110,7 @@ function Customer(){
 
 	 return(
 	 <div> 
-	  
+	  <Button onClick={navigateHome} sx={{ color: 'black', backgroundColor: 'orange', borderColor: 'orange' }}>Home</Button>
 	  <div className="Title">
 	 	<h1 className="PageTitle">Place an order:</h1>
 		</div>
@@ -116,9 +123,8 @@ function Customer(){
 	 		<input type="text" onChange={(event) => { setItem(event.target.value); }} />
 	 		<label>Quantity:</label>
 	 		<input type="number" onChange={(event) => { setQty(event.target.value); }}/>
-			<button onClick={addOrder}>Submit Order</button>
+			<Button onClick={addOrder} sx={{ color: 'black', backgroundColor: 'orange', borderColor: 'orange', minWidth: '30%', padding: '30px', margin: '20px'}}>Submit Order</Button>
 
-        <button onClick={getOrders}>Show Orders</button>
 			  
 
 		 
@@ -131,7 +137,7 @@ function Customer(){
                 <h3>Item: {val.item}</h3>
                 <h3>Qty: {val.qty}</h3>
                 <h3>Order_Date: {val.date}</h3>
-                <h3>ID: {val.id}</h3>
+             
               </div>
               <div>
                 <input
@@ -141,14 +147,15 @@ function Customer(){
                     setNewItem(event.target.value);
                   }}
                 />
-                <button
+                <Button
                   onClick={() => {
                     updateOrderItem(val.id);
                   }}
+				  sx={{ color: 'black', backgroundColor: 'orange', borderColor: 'orange', minWidth: '30%', padding: '30px', margin: '20px'}}
                 >
                   {" "}
                   Update item
-                </button>
+                </Button>
 
 
 					 <input
@@ -157,24 +164,26 @@ function Customer(){
 					  onChange={(event) => {
 							setNewQty(event.target.value);
 						}}
+						sx={{ color: 'black', backgroundColor: 'orange', borderColor: 'orange', minWidth: '30%', padding: '30px', margin: '20px'}}
 						/>
 
-						<button
+						<Button
 						 onClick={() => {
 							  updateOrderQty(val.id);
 							}}
+							sx={{ color: 'black', backgroundColor: 'orange', borderColor: 'orange', minWidth: '30%', padding: '30px', margin: '20px'}}
 						>
 						{" "}
 						Update quantity
-						</button>
+						</Button>
 
-                <button
+                <Button
                   onClick={() => {
                     deleteOrder(val.id);
-                  }}
+				  }}
                 >
                   Delete
-                </button>
+                </Button>
               </div>
             </div>
           );

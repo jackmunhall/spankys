@@ -3,11 +3,18 @@ import React, { useEffect , useState} from 'react';
 import {Table,TableBody,TableCell,TableContainer,TableHead,TableRow,Paper,IconButton,TextField} from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit';
 import CheckIcon from '@mui/icons-material/Check';
+import {Routes, Route, useNavigate} from 'react-router-dom';
+import Button from '@mui/material/Button' 
 
 function Inventory(){
 	const [inventoryList, setInventorylist] = useState([])
 	const [currentlyEditing, setCurrentlyEditing] = useState(-2) // -2 is not an index in inventoryList, so will not be seen as currently editing
 	const [dummy, setDummy] = useState(-1)
+
+	const navigate = useNavigate();
+	 const navigateBack = () => {
+		navigate ('/Employee');
+    }
 
 	useEffect(() => {
 		console.log("loaded")
@@ -44,6 +51,7 @@ function Inventory(){
 
 	return(
 		<div>
+			<Button onClick={navigateBack} sx={{ color: 'black', backgroundColor: 'orange', borderColor: 'orange' }}>Back</Button>
 			<h1 className="header">Inventory page</h1>
 			<button onClick={getInventory}>Load Inventory</button>
 			<div className="table">

@@ -28,12 +28,15 @@ function Employee(){
 		 navigate ('/Shifts');
 	}
 
-	
+	const navigateBack = () => {
+		navigate('/');
+	}
 
     return (
 
 
 	<div className="page">
+		<Button onClick={navigateBack} sx={{ color: 'black', backgroundColor: 'orange', borderColor: 'orange' }}>Back</Button>
 	 <div className="header">
 	<h1 className="header">Employee page</h1>
 	 </div>

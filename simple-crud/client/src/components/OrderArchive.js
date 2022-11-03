@@ -7,7 +7,7 @@ import Axios from 'axios';
 import {Routes, Route, useNavigate} from 'react-router-dom';
 
   
-function Order(){
+function OrderArchive(){
 
 	 const [nickname, setNickname] = useState("");
 	 const [item, setItem] = useState("");
@@ -25,13 +25,9 @@ function Order(){
 	 const navigateHome = () => {
 		navigate ('/');
     }
-
-	const navigateArchive = () => {
-		navigate('/orderarchive');
-	}
-	const navigateEmployee = () => {
-		navigate('/Employee');
-	}
+    const navigateOrders = () => {
+        navigate ('/Order');
+    }
 
 
 
@@ -57,6 +53,12 @@ function Order(){
 				 setOrderList(response.data);
 			});
 	   };
+
+       const getOrders = () => {
+        Axios.get("http://localhost:3001/orders").then((response) => {
+             setOrderList(response.data);
+        });
+   };
 
 	   const markComplete = (id) => {
 		Axios.put("http://localhost:3001/complete", {completed: 1, id: id}).then(
@@ -138,18 +140,17 @@ function Order(){
 
 	 return(
 	 <div> 
-	    <Button onClick={navigateEmployee} sx={{ color: 'black', backgroundColor: 'orange', borderColor: 'orange' }}>Back to employee menu</Button>
-	  
+	    <Button onClick={navigateOrders} sx={{ color: 'black', backgroundColor: 'orange', borderColor: 'orange' }}>Back to active orders</Button>
 	  <div className="Title">
 	 	<h1 className="PageTitle">Manage orders:</h1>
 		</div>
 		<div className="order_page">
 		
 	<div className="choices">
-	 <Button onClick={getOpenOrders}  variant='outlined'
-  				sx={{ color: 'black', backgroundColor: 'orange', borderColor: 'orange', minWidth: '30%', padding: '30px', margin: '20px'}}>Show Active Orders</Button>
+	 <Button onClick={getOrders}  variant='outlined'
+  				sx={{ color: 'black', backgroundColor: 'orange', borderColor: 'orange', minWidth: '30%', padding: '30px', margin: '20px'}}>Show Orders Archive</Button>
 			  
-			  <Button onClick={navigateArchive} sx={{ color: 'black', backgroundColor: 'gray', borderColor: 'orange' }}>Show orders archive</Button>
+
 		 
 
         {orderList.map((val, key) => {
@@ -179,43 +180,10 @@ function Order(){
 					 </div>
               </div>
               <div className="choices">
-                <input
-                  type="text"
-                  placeholder="Update item here"
-                  onChange={(event) => {
-                    setNewItem(event.target.value);
-                  }}
-
- />
-                <Button
-                  onClick={() => {
-                    updateOrderItem(val.id);
-                  }}
-                  variant='outlined'
-  				sx={{ color: 'black', backgroundColor: 'orange', borderColor: 'orange', minWidth: '30%', padding: '10px', margin: '10px'}}>
-                  {" "}
-                  Update item
-                </Button>
+                
 
 
-					 <input
-					  type="number"
-					  placeholder="Update quantity here"
-					  onChange={(event) => {
-							setNewQty(event.target.value);
-						}}
-						/>
-
-						<Button
-						 onClick={() => {
-							  updateOrderQty(val.id);
-							}}  variant='outlined'
-  				sx={{ color: 'black', backgroundColor: 'orange', borderColor: 'orange', minWidth: '30%', padding: '10px', margin: '10px'}}
-						>
-						{" "}
-						Update quantity
-						</Button>
-
+					
                 <Button
                   onClick={() => {
                     deleteOrder(val.id);
@@ -224,15 +192,7 @@ function Order(){
   				sx={{ color: 'black', backgroundColor: 'red', borderColor: 'orange', minWidth: '30%', padding: '20px', margin: '10px'}}>
                   Delete
                 </Button>
-				<Button
-                  onClick={ () => {
-                    markComplete(val.id); 
-                  }}
-                 variant='outlined'
-  				sx={{ color: 'white', backgroundColor: 'green', borderColor: 'green', minWidth: '30%', padding: '20px', margin: '10px'}}>
-                  Mark Complete
-                </Button>
-				<Button onClick={getOpenOrders}>Refresh</Button>
+
 
               </div>
             </div>
@@ -248,5 +208,4 @@ function Order(){
 
 }
   
-export default Order;
-
+export default OrderArchive;

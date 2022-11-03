@@ -6,6 +6,7 @@ import Order from "./components/Order";
 import EmployeeInfo from "./components/EmployeeInfo";
 import Inventory from "./components/Inventory";
 import Shifts from "./components/Shifts";
+import Archive from "./components/OrderArchive";
 
 import {
   BrowserRouter as Router,
@@ -28,6 +29,7 @@ function App() {
 		  <Route path='/inventory' element={<Inventory/>}></Route>
 		  <Route path='/employeeinfo' element={<EmployeeInfo/>}></Route>
 		  <Route path='/shifts' element={<Shifts/>}></Route>
+      <Route path='/orderarchive' element={<Archive/>}></Route>
 
       </Routes>
     </Router>
