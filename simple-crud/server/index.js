@@ -65,6 +65,21 @@ app.put("/update", (req, res) => {
   );
 });
 
+app.put("/updateInventory", (req, res) => {
+  const Item = req.body.Item
+  const QuantityLeft = req.body.QuantityLeft
+  db.query(
+    `UPDATE inventory SET QuantityLeft = ${QuantityLeft} WHERE Item = "${Item}"`,
+    (err, result) => {
+      if (err) {
+        console.log(err)
+      } else {
+        res.send(result)
+      }
+    }
+  )
+})
+
 app.put("/updateq", (req, res) => {
   const id = req.body.id;
   const qty = parseInt(req.body.qty);
