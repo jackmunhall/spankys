@@ -4,6 +4,7 @@ import Button from '@mui/material/Button'
 import "./Order.css";
 import { useState } from 'react';
 import Axios from 'axios';
+import {Routes, Route, useNavigate} from 'react-router-dom';
 
   
 function Order(){
@@ -11,6 +12,7 @@ function Order(){
 	 const [nickname, setNickname] = useState("");
 	 const [item, setItem] = useState("");
 	 const [qty, setQty] = useState(0);
+	 const [completed, setCompleted] = useState(0);
 
 	 const displayInfo = () => { console.log(nickname + item + qty); };
 
@@ -18,6 +20,11 @@ function Order(){
 	 const [newQty, setNewQty] = useState(0);
 
 	 const [orderList, setOrderList] = useState([]);
+
+	 const navigate = useNavigate();
+	 const navigateHome = () => {
+		navigate ('/');
+    }
 
 
 
@@ -38,8 +45,8 @@ function Order(){
 			 });
 		};
 
-		const getOrders = () => {
-			 Axios.get("http://localhost:3001/orders").then((response) => {
+		const getOpenOrders = () => {
+			 Axios.get("http://localhost:3001/openorders").then((response) => {
 				  setOrderList(response.data);
 			 });
 		};
@@ -96,18 +103,39 @@ function Order(){
 			});
 		};
 
+		const markComplete = (id) => {
+			Axios.put("http://localhost:3001/complete", {completed: 1, id: id}).then(
+			(response) => {
+				 setOrderList(
+					 orderList.map((val) => {
+						return val.id == id
+						? {
+							 id: val.id,
+							 nickname: val.nickname,
+							 item: val.item,
+							 qty: val.qty,
+							 completed: val.completed,
+						}
+
+						: val;
+				   })
+			   );
+		   }
+	   );
+   };
+
 
 	 return(
 	 <div> 
-	  
+	  <Button onClick={navigateHome} sx={{ color: 'black', backgroundColor: 'orange', borderColor: 'orange' }}>Back to home</Button>
 	  <div className="Title">
 	 	<h1 className="PageTitle">Manage orders:</h1>
 		</div>
 		<div className="order_page">
 		
 	<div className="choices">
-	 <Button onClick={getOrders}  variant='outlined'
-  				sx={{ color: 'black', backgroundColor: 'orange', borderColor: 'orange', minWidth: '30%', padding: '30px', margin: '20px'}}>Show Orders</Button>
+	 <Button onClick={getOpenOrders}  variant='outlined'
+  				sx={{ color: 'black', backgroundColor: 'orange', borderColor: 'orange', minWidth: '30%', padding: '30px', margin: '20px'}}>Show Active Orders</Button>
 			  
 
 		 
@@ -182,9 +210,19 @@ function Order(){
                     deleteOrder(val.id);
                   }}
                  variant='outlined'
-  				sx={{ color: 'black', backgroundColor: 'orange', borderColor: 'orange', minWidth: '30%', padding: '20px', margin: '10px'}}>
+  				sx={{ color: 'black', backgroundColor: 'red', borderColor: 'red', minWidth: '30%', padding: '20px', margin: '10px'}}>
                   Delete
                 </Button>
+
+				<Button
+                  onClick={() => {
+                    markComplete(val.id);
+                  }}
+                 variant='outlined'
+  				sx={{ color: 'white', backgroundColor: 'green', borderColor: 'green', minWidth: '30%', padding: '20px', margin: '10px'}}>
+                  Mark Complete
+                </Button>
+
               </div>
             </div>
           );

@@ -1,6 +1,9 @@
 import "./Customer.css";
 import { useState } from 'react';
 import Axios from 'axios';
+import {Routes, Route, useNavigate} from 'react-router-dom';
+import Button from '@mui/material/Button';
+
 
   
 function Customer(){
@@ -17,6 +20,13 @@ function Customer(){
 
 	 const [orderList, setOrderList] = useState([]);
 
+	 const current = new Date();
+     const date = `${current.getMonth()+1}/${current.getDate()}/${current.getFullYear()}`;
+
+	 const navigate = useNavigate();
+	 const navigateHome = () => {
+		navigate ('/');
+    }
 
 
 	 const addOrder = () => {
@@ -31,6 +41,8 @@ function Customer(){
 							 nickname: nickname,
 							 item: item,
 							 qty: qty,
+							 date: date,
+
 						},
 					]);
 			 });
@@ -57,6 +69,7 @@ function Customer(){
 							  nickname: val.nickname,
 							  item: val.item,
 							  qty: val.qty,
+							  date: val.date,
 							 }
 
 							: val;
@@ -78,6 +91,7 @@ function Customer(){
 							  nickname: val.nickname,
 							  item: val.item,
 							  qty: val.qty,
+							  date: val.date,
 						 }
 
 						 : val;
@@ -106,7 +120,7 @@ function Customer(){
 
 	 return(
 	 <div> 
-	  
+	  <Button onClick={navigateHome} sx={{ color: 'black', backgroundColor: 'orange', borderColor: 'orange' }}>Back to home</Button>
 	  <div className="Title">
 	 	<h1 className="PageTitle">Place an order:</h1>
 		</div>
@@ -119,9 +133,9 @@ function Customer(){
 	 		<input type="text" onChange={(event) => { setItem(event.target.value); }} />
 	 		<label>Quantity:</label>
 	 		<input type="number" onChange={(event) => { setQty(event.target.value); }}/>
-			<button onClick={addOrder}>Submit Order</button>
+			<Button onClick={addOrder} sx={{ color: 'black', backgroundColor: 'orange', borderColor: 'orange' }}>Submit Order</Button>
 
-        <button onClick={getOrders}>Show Orders</button>
+        
 			  
 
 		 
@@ -134,50 +148,10 @@ function Customer(){
                 <h3>Item: {val.item}</h3>
                 <h3>Qty: {val.qty}</h3>
                 <h3>Order_Date: {val.date}</h3>
-                <h3>ID: {val.id}</h3>
               </div>
               <div>
-                <input
-                  type="text"
-                  placeholder="Update item here"
-                  onChange={(event) => {
-                    setNewItem(event.target.value);
-                  }}
-                />
-                <button
-                  onClick={() => {
-                    updateOrderItem(val.id);
-                  }}
-                >
-                  {" "}
-                  Update item
-                </button>
-
-
-					 <input
-					  type="number"
-					  placeholder="Update quantity here"
-					  onChange={(event) => {
-							setNewQty(event.target.value);
-						}}
-						/>
-
-						<button
-						 onClick={() => {
-							  updateOrderQty(val.id);
-							}}
-						>
-						{" "}
-						Update quantity
-						</button>
-
-                <button
-                  onClick={() => {
-                    deleteOrder(val.id);
-                  }}
-                >
-                  Delete
-                </button>
+               
+       
               </div>
             </div>
           );

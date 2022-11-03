@@ -3,6 +3,7 @@ const app = express(); //Creating an app from the instance
 
 const mysql = require("mysql2"); //Setting up MySQL. Note that we need mysql2
 const cors = require("cors"); //Cross-origin resource sharing
+const { stepperClasses } = require("@mui/material");
 require("dotenv").config(); //.env file in this folder holds private information
 
 app.use(cors());
@@ -15,10 +16,11 @@ app.post("/create", (req, res) => {
   const nickname = req.body.nickname;
   const item = req.body.item;
   const qty = parseInt(req.body.qty);
+  const date = req.body.date;
 
   db.query(
-    "INSERT INTO orders22 (nickname, item, qty, completed) VALUES(?,?,?,?)",
-    [nickname, item, qty, 0],
+    "INSERT INTO orders22 (nickname, item, qty, date, completed) VALUES(?,?,?, ?, ?)",
+    [nickname, item, qty, date, 0],
     (err, result) => {
       if (err) {
         console.log(err);
@@ -35,6 +37,18 @@ app.get("/orders", (req, res) => {
       console.log(err);
     } else {
       res.send(result);
+    }
+  });
+});
+
+
+app.get("/openorders", (req, res) => {
+  db.query("SELECT * FROM orders22 WHERE completed = 0", (err, result) => { 
+
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);     
     }
   });
 });
@@ -72,6 +86,24 @@ app.put("/updateq", (req, res) => {
 		}
 	);
 });
+
+
+app.put("/complete", (req, res) => {
+  const id = req.body.id;
+  const completed = parseInt(req.body.completed)
+  db.query(
+  "UPDATE orders22 SET completed = ? WHERE id = ?",
+  [1, id],
+  (err, result) => {
+     if (err) {
+       console.log(err);
+     } else {
+        res.send(result);
+     }
+   }
+ );
+});
+
 
 
 
