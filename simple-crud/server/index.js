@@ -39,6 +39,16 @@ app.get("/orders", (req, res) => {
   });
 });
 
+app.get("/inventory", (req, res) => {
+  db.query("SELECT * FROM inventory", (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
 app.put("/update", (req, res) => {
   const id = req.body.id;
   const item = req.body.item;
@@ -54,6 +64,21 @@ app.put("/update", (req, res) => {
     }
   );
 });
+
+app.put("/updateInventory", (req, res) => {
+  const Item = req.body.Item
+  const QuantityLeft = req.body.QuantityLeft
+  db.query(
+    `UPDATE inventory SET QuantityLeft = ${QuantityLeft} WHERE Item = "${Item}"`,
+    (err, result) => {
+      if (err) {
+        console.log(err)
+      } else {
+        res.send(result)
+      }
+    }
+  )
+})
 
 app.put("/updateq", (req, res) => {
   const id = req.body.id;
